@@ -21,10 +21,16 @@ def write_data_db(long_url: str, short_url: str):
         print("ERRRROOrr", error)
 
 def get_links(code: str):
-    sql = f"""
-    SELECT "long"
-    FROM "links"
-    WHERE "short" = '{code}'
-    """
-    cur.execute(sql)
+    # sql = f"""
+    # CREATE INDEX index_name ON links (short) 
+    # """ 
+    cur.execute("SET enable_seqscan TO on")
+    cur.execute(
+        f"""
+        EXPLAIN (ANALYZE, BUFFERS)
+        SELECT "long"
+        FROM "links"
+        WHERE "short" = '{code}'
+        """
+    )
     return cur.fetchone()

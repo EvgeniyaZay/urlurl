@@ -1,0 +1,25 @@
+version: "3"
+volumes:
+  postgres:
+
+services:
+  postgres:
+    image: postgres:latest
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - "5453:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=0000
+      - POSTGRES_DB=mydb
+
+    restart: always  
+    
+
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - "postgres"
