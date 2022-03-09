@@ -7,7 +7,7 @@ app = FastAPI()
 # hello world, метод GET, возврат строки
 @app.get("/")
 def hello():
-    return "Hello World!"
+    return "Hello World!!"
 
 @app.post("/short_link/")
 def get_short_link(item: Item):
